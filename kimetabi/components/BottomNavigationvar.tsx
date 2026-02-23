@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useRouter } from "next/navigation"
 import { Home, UsersRound, Settings, Loader2 } from "lucide-react"
-import { useTransition } from "react"
+import { useTransition, useEffect } from "react"
 
 type FloatNavProps = {
   id: string,
@@ -21,6 +21,13 @@ export default function FloatingNav(Props: FloatNavProps) {
     { title: "Home", href: "/", icon: Home },
     { title: "Settings", href: `/${Props.id}`, icon: Settings },
   ]
+
+  // マウント時にすべてのナビゲーション項目をプリフェッチする
+  useEffect(() => {
+    navItems.forEach((item) => {
+      router.prefetch(item.href)
+    })
+  }, [router, Props.id])
 
   return (
     // z-[9999] で常に最前面＆全画面対応
@@ -41,7 +48,10 @@ export default function FloatingNav(Props: FloatNavProps) {
                 key={item.title}
                 title={item.title}
                 disabled={isPending}
+                // ホバー時（またはタッチ開始時）にプリフェッチを走らせて遷移を爆速にする
+                onPointerEnter={() => router.prefetch(item.href)}
                 onClick={() => {
+                  if (isActive) return; // すでにそのページにいる場合は何もしない
                   startTransition(() => {
                     router.push(item.href)
                   })
