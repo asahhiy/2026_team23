@@ -1,55 +1,13 @@
-"use client";
-
 import { Card, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
 import SignIn from "@/components/sign-in";
-import { useState, useEffect } from "react";
-
-// 背景画像のリスト（ファイル名は適宜修正してください）
-const backgroundImages = [
-  "/bg-1.jpg",
-  "/bg-2.jpg",
-  "/bg-3.jpg",
-  "/bg-4.jpg",
-  "/bg-5.jpg",
-  "/bg-6.jpg",
-  "/bg-7.jpg",
-  "/bg-8.jpg",
-  "/bg-9.jpg",
-  "/bg-10.jpg",
-  "/bg-11.jpg",
-];
+import BackgroundImageSlideshow from "@/components/ui/BackgroundImageSlideshow";
 
 export default function LoginPage() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  // 5秒ごとに背景を切り替えるタイマー
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     // relative と overflow-hidden を追加して、背景がはみ出さないようにします
     <div className="relative min-h-screen items-center justify-center flex overflow-hidden">
       
-      {/* --- ここから背景スライドショーレイヤー --- */}
-      {backgroundImages.map((image, index) => (
-        <div
-          key={image}
-          className={`
-            absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-[2000ms] ease-in-out
-            filter blur-[6px] scale-105
-            ${index === currentImageIndex ? "opacity-100" : "opacity-0"}
-          `}
-          style={{ backgroundImage: `url(${image})` }}
-        />
-      ))}
-      {/* 背景を少し暗くする膜（文字を読みやすくするため） */}
-      <div className="absolute inset-0 bg-black/30" />
-      {/* --- ここまで背景スライドショーレイヤー --- */}
-
+      <BackgroundImageSlideshow />
 
       {/* ここからは元のコードを維持しています。
           背景との重なり順を制御するため、一番外側の div に relative z-10 を追加しました。
