@@ -36,7 +36,7 @@ export default function MyProjectsList({ memberships }: MyProjectsListProps) {
           </h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {pendingProjects.map(({ project }) => (
-              <Link key={project.id} href={`/projects/${project.id}`}>
+              <Link key={project.id} href={`/projects/${project.id}`} prefetch={true}>
                 <Card className="border-red-300 bg-red-50 hover:bg-red-100 transition-colors h-full cursor-pointer">
                   <CardHeader>
                     <CardTitle className="text-xl text-red-700">
@@ -74,7 +74,7 @@ export default function MyProjectsList({ memberships }: MyProjectsListProps) {
           </h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {acceptedProjects.map(({ project }) => (
-              <Link key={project.id} href={`/projects/${project.id}`}>
+              <Link key={project.id} href={`/projects/${project.id}`} prefetch={true}>
                 <Card className="border-green-200 bg-white hover:bg-green-50 transition-colors h-full cursor-pointer shadow-sm">
                   <CardHeader>
                     <CardTitle className="text-xl text-gray-800">

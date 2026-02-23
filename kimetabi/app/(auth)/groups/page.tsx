@@ -47,7 +47,7 @@ export default async function groupPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {userGroups.map((gm) => (
               <Card key={gm.id} className="hover:shadow-md transition-shadow">
-                <Link href={`/groups/${gm.groupId}`}>
+                <Link href={`/groups/${gm.groupId}`} prefetch={true}>
                   <CardHeader>
                     <CardTitle>{gm.group.name}</CardTitle>
                     <CardDescription>
